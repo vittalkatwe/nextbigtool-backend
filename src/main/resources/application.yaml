@@ -39,8 +39,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 513115585851-bjgtt3pmlnomdcg8btfj4n1e8vfnqmkn.apps.googleusercontent.com
-            client-secret: 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
+            client-id: demo
+            client-secret: demo
             scope:
               - openid
               - profile
@@ -51,7 +51,7 @@ server:
   port: 8080
 
 jwt:
-  secret: cBp7/MqB9AzeWa6vlrvaIg8KdVI0rNbwgeXG1scQPI8T0CcC4TXb6VcW3OwH1cgGLOqeE7LZ/l7if1OP3v2usA==
+  secret: demo
   expiration: 36000000
   refresh:
     expiration: 2592000000
@@ -65,12 +65,12 @@ app:
 cloud:
   aws:
     credentials:
-      access-key: AKIATH22YZ4Z4EVCPNV2
-      secret-key: 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
+      access-key: demo
+      secret-key: demo
       region: ap-south-1
     venture:
       images-bucket: cobrother-storage
 
 razorpay:
-  key-id: rzp_test_SXxop7Sv377VmF
-  key-secret: fjtHt0FhBcXWqdBTY4lyPtMt
+  key-id: demo
+  key-secret: demo
