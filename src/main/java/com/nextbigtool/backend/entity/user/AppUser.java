@@ -40,7 +40,7 @@ public class AppUser {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role = UserRole.GUEST;
+    private UserRole role = UserRole.USER;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -57,6 +57,23 @@ public class AppUser {
 
     @Column(nullable = false)
     private Boolean phoneVerified = false;
+
+    // ── Public profile ────────────────────────────────────────────────────────
+    @Column(length = 500)
+    private String bio;
+    private String website;
+    private String avatarUrl;
+    private String twitterHandle;
+
+    // ── Notification preferences ──────────────────────────────────────────────
+    @Column(nullable = false)
+    private Boolean notifyOnUpvote = true;
+    @Column(nullable = false)
+    private Boolean notifyOnComment = true;
+    @Column(nullable = false)
+    private Boolean notifyOnMessage = true;
+    @Column(nullable = false)
+    private Boolean profilePublic = true;
 
     @JsonIgnore
     private String emailOtp;
@@ -177,6 +194,23 @@ public class AppUser {
 
     public LocalDateTime getLastModified() { return lastModified; }
     public void setLastModified(LocalDateTime lastModified) { this.lastModified = lastModified; }
+
+    public String getBio() { return bio; }
+    public void setBio(String bio) { this.bio = bio; }
+    public String getWebsite() { return website; }
+    public void setWebsite(String website) { this.website = website; }
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+    public String getTwitterHandle() { return twitterHandle; }
+    public void setTwitterHandle(String twitterHandle) { this.twitterHandle = twitterHandle; }
+    public Boolean getNotifyOnUpvote() { return notifyOnUpvote; }
+    public void setNotifyOnUpvote(Boolean v) { this.notifyOnUpvote = v; }
+    public Boolean getNotifyOnComment() { return notifyOnComment; }
+    public void setNotifyOnComment(Boolean v) { this.notifyOnComment = v; }
+    public Boolean getNotifyOnMessage() { return notifyOnMessage; }
+    public void setNotifyOnMessage(Boolean v) { this.notifyOnMessage = v; }
+    public Boolean getProfilePublic() { return profilePublic; }
+    public void setProfilePublic(Boolean v) { this.profilePublic = v; }
 
     public String getGoogleAccessToken() {
         return googleAccessToken;

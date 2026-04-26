@@ -3,8 +3,6 @@ package com.nextbigtool.backend.entity.tool;
 import com.nextbigtool.backend.entity.user.AppUser;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +35,13 @@ public class Tool {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String screenshotUrl;
+    // ── Media ────────────────────────────────────────────────────────────────
+    @ElementCollection
+    @CollectionTable(name = "tool_screenshots", joinColumns = @JoinColumn(name = "tool_id"))
+    @Column(name = "url")
+    private List<String> screenshots;
+
+    private String videoUrl;
 
     // ── Enums ────────────────────────────────────────────────────────────────
     @Enumerated(EnumType.STRING)
@@ -72,6 +76,12 @@ public class Tool {
     private String mrr;
     private String arr;
     private String discountCode;
+
+    // ── Featured & Stats ─────────────────────────────────────────────────────
+    private LocalDateTime featuredUntil;
+
+    @Column(nullable = false)
+    private Long viewCount = 0L;
 
     // ── Status ───────────────────────────────────────────────────────────────
     @Enumerated(EnumType.STRING)

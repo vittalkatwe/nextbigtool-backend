@@ -2,6 +2,11 @@ spring:
   application:
     name: NextBigTool
 
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 110MB
+
   datasource:
     url: jdbc:postgresql://localhost:5432/nextbigtool
     password: 8431465059
@@ -13,7 +18,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   h2:
     console:
@@ -22,7 +27,7 @@ spring:
 
   mail:
     username: cobrother.com@gmail.com
-    password: demo
+    password: qwex rbyd mamd kgql
     host: smtp.gmail.com
     port: 587
     properties:
@@ -39,8 +44,8 @@ spring:
       client:
         registration:
           google:
-            client-id: demo
-            client-secret: demo
+            client-id: 513115585851-bjgtt3pmlnomdcg8btfj4n1e8vfnqmkn.apps.googleusercontent.com
+            client-secret: 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
             scope:
               - openid
               - profile
@@ -51,7 +56,7 @@ server:
   port: 8080
 
 jwt:
-  secret: demo
+  secret: cBp7/MqB9AzeWa6vlrvaIg8KdVI0rNbwgeXG1scQPI8T0CcC4TXb6VcW3OwH1cgGLOqeE7LZ/l7if1OP3v2usA==
   expiration: 36000000
   refresh:
     expiration: 2592000000
@@ -65,12 +70,16 @@ app:
 cloud:
   aws:
     credentials:
-      access-key: demo
-      secret-key: demo
+      access-key: AKIATH22YZ4Z4EVCPNV2
+      secret-key: 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
       region: ap-south-1
     venture:
       images-bucket: cobrother-storage
 
 razorpay:
-  key-id: demo
-  key-secret: demo
+  key-id: rzp_test_SXxop7Sv377VmF
+  key-secret: fjtHt0FhBcXWqdBTY4lyPtMt
+  webhook-secret: 4f9710241cc63ee99ce78c17d483db968f2237695e1fb2caba336abfe95b86be
+  plan-id:
+    basic-monthly: plan_SiBcwEtTPoeca2
+    core-monthly: plan_SiBdlKCVZU1DIb

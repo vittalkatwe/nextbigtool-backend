@@ -6,6 +6,7 @@ import com.nextbigtool.backend.entity.user.UserRole;
 import com.nextbigtool.backend.repository.UserRepository;
 import com.nextbigtool.backend.service.auth.CustomUserDetails;
 import com.nextbigtool.backend.service.auth.OAuth2UserInfo;
+import com.nextbigtool.backend.service.subscription.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
@@ -21,6 +22,9 @@ public class CustomOAuth2UserService extends OidcUserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @Override
     @Transactional
@@ -69,14 +73,16 @@ public class CustomOAuth2UserService extends OidcUserService {
         user.setEmail(userInfo.getEmail().toLowerCase().trim());
         user.setEmailVerified(true);
         user.setActive(true);
-        user.setRole(UserRole.GUEST);
+        user.setRole(UserRole.USER);
         user.setAuthProvider(AuthProvider.OAUTH);
         user.setOauthProvider(registrationId);
         user.setOauthProviderId(userInfo.getId());
         user.setProfileComplete(false);
         user.setGoogleAccessToken(accessToken);
         if (refreshToken != null) user.setGoogleRefreshToken(refreshToken);
-        return userRepository.save(user);
+        AppUser saved = userRepository.save(user);
+        subscriptionService.createFreeSubscription(saved);
+        return saved;
     }
 
     private AppUser updateExistingOAuthUser(AppUser user, OAuth2UserInfo userInfo,

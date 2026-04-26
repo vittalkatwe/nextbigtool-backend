@@ -7,45 +7,35 @@ import java.util.List;
 public class ToolSubmitRequestDto {
 
     private String productName;
-
     private String websiteUrl;
-
     private String logoUrl;
-
     private String tagline;
-
     private String description;
 
-    private String screenshotUrl;
+    // ── Media ────────────────────────────────────────────────────────────────
+    private List<String> screenshots; // max 10, S3 URLs
+    private String videoUrl;          // YouTube/Vimeo/S3 URL
 
     private ToolCategory category;
-
     private List<TargetAudience> targetAudiences;
-
     private List<UseCase> useCases;
-
     private List<Platform> platforms;
-
     private List<AlternativeDto> alternatives;
 
-    // Additional info
     private String mrr;
     private String arr;
     private String discountCode;
 
-    // ── Nested DTO ───────────────────────────────────────────────────────────
     public static class AlternativeDto {
         private String name;
         private String url;
 
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
-
         public String getUrl() { return url; }
         public void setUrl(String url) { this.url = url; }
     }
 
-    // ── Getters & Setters ────────────────────────────────────────────────────
     public String getProductName() { return productName; }
     public void setProductName(String productName) { this.productName = productName; }
 
@@ -61,8 +51,11 @@ public class ToolSubmitRequestDto {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getScreenshotUrl() { return screenshotUrl; }
-    public void setScreenshotUrl(String screenshotUrl) { this.screenshotUrl = screenshotUrl; }
+    public List<String> getScreenshots() { return screenshots; }
+    public void setScreenshots(List<String> screenshots) { this.screenshots = screenshots; }
+
+    public String getVideoUrl() { return videoUrl; }
+    public void setVideoUrl(String videoUrl) { this.videoUrl = videoUrl; }
 
     public ToolCategory getCategory() { return category; }
     public void setCategory(ToolCategory category) { this.category = category; }

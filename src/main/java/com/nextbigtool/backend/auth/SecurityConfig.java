@@ -98,10 +98,21 @@ public class SecurityConfig {
                                 // ── Community auctions (public browsing) ─────
                                 "/api/v1/community-auction/active",
                                 "/api/v1/community-auction/{id}",
-                                "/api/v1/community-auction/community/**"
+                                "/api/v1/community-auction/community/**",
+                                // ── Tools (public listing/detail) ─────────────
+                                "/api/v1/tools",
+                                "/api/v1/tools/featured",
+                                "/api/v1/tools/{id}",
+                                "/api/v1/tools/{id}/comments",
+                                "/api/v1/tools/{id}/upvote/count",
+                                "/api/v1/tools/{id}/analytics/view",
+                                "/api/v1/pricing",
+                                "/api/v1/bip/feed",
+                                "/api/v1/hall-of-fame",
+                                "/api/v1/webhooks/razorpay",
+                                "/api/v1/newsletter/issues/*/read"
                         ).permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/cobrother/**").hasRole("COBROTHER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

@@ -45,6 +45,15 @@ public class ToolController {
     }
 
     /**
+     * Featured tools (active featuredUntil > now)
+     * GET /api/v1/tools/featured
+     */
+    @GetMapping("/featured")
+    public ResponseEntity<?> getFeaturedTools() {
+        return toolService.getFeaturedTools();
+    }
+
+    /**
      * Get single tool by ID
      * GET /api/v1/tools/{id}
      */

@@ -14,7 +14,8 @@ public class ToolResponseDto {
     private String logoUrl;
     private String tagline;
     private String description;
-    private String screenshotUrl;
+    private List<String> screenshots;
+    private String videoUrl;
     private ToolCategory category;
     private List<TargetAudience> targetAudiences;
     private List<UseCase> useCases;
@@ -27,6 +28,8 @@ public class ToolResponseDto {
     private LocalDateTime createdAt;
     private Long submittedById;
     private String submittedByEmail;
+    private long upvoteCount;
+    private long commentCount;
 
     public static class AlternativeDto {
         private String name;
@@ -49,7 +52,8 @@ public class ToolResponseDto {
         dto.logoUrl = tool.getLogoUrl();
         dto.tagline = tool.getTagline();
         dto.description = tool.getDescription();
-        dto.screenshotUrl = tool.getScreenshotUrl();
+        dto.screenshots = tool.getScreenshots();
+        dto.videoUrl = tool.getVideoUrl();
         dto.category = tool.getCategory();
         dto.targetAudiences = tool.getTargetAudiences();
         dto.useCases = tool.getUseCases();
@@ -71,14 +75,14 @@ public class ToolResponseDto {
         return dto;
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────────
     public Long getId() { return id; }
     public String getProductName() { return productName; }
     public String getWebsiteUrl() { return websiteUrl; }
     public String getLogoUrl() { return logoUrl; }
     public String getTagline() { return tagline; }
     public String getDescription() { return description; }
-    public String getScreenshotUrl() { return screenshotUrl; }
+    public List<String> getScreenshots() { return screenshots; }
+    public String getVideoUrl() { return videoUrl; }
     public ToolCategory getCategory() { return category; }
     public List<TargetAudience> getTargetAudiences() { return targetAudiences; }
     public List<UseCase> getUseCases() { return useCases; }
@@ -91,4 +95,8 @@ public class ToolResponseDto {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public Long getSubmittedById() { return submittedById; }
     public String getSubmittedByEmail() { return submittedByEmail; }
+    public long getUpvoteCount() { return upvoteCount; }
+    public void setUpvoteCount(long upvoteCount) { this.upvoteCount = upvoteCount; }
+    public long getCommentCount() { return commentCount; }
+    public void setCommentCount(long commentCount) { this.commentCount = commentCount; }
 }

@@ -5,6 +5,7 @@ import com.nextbigtool.backend.entity.user.RefreshToken;
 import com.nextbigtool.backend.entity.user.UserRole;
 import com.nextbigtool.backend.repository.UserRepository;
 import com.nextbigtool.backend.model.auth.*;
+import com.nextbigtool.backend.service.subscription.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,9 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     /**
      * Register new user with email and password
      */
@@ -73,6 +77,9 @@ public class AuthService {
 
             // Save user
             user = userRepository.save(user);
+
+            // Create free subscription
+            subscriptionService.createFreeSubscription(user);
 
             // Send verification email
             mailService.sendVerificationEmail(email, verificationToken);
