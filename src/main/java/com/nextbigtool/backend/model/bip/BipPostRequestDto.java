@@ -4,6 +4,7 @@ import com.nextbigtool.backend.entity.bip.PostType;
 
 public class BipPostRequestDto {
     private PostType type;
+    private String title;
     private String content;
     private String metricLabel;
     private String metricValue;
@@ -11,6 +12,9 @@ public class BipPostRequestDto {
 
     public PostType getType() { return type; }
     public void setType(PostType type) { this.type = type; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }

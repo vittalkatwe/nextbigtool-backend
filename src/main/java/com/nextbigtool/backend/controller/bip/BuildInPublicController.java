@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/bip")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
@@ -20,6 +22,11 @@ public class BuildInPublicController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         return bipService.getFeed(page, size);
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<?> getPost(@PathVariable Long postId) {
+        return bipService.getPost(postId);
     }
 
     @PostMapping
@@ -38,5 +45,39 @@ public class BuildInPublicController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMyPosts() {
         return bipService.getMyPosts();
+    }
+
+    // ── Comments ─────────────────────────────────────────────────────────────
+
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<?> getComments(@PathVariable Long postId) {
+        return bipService.getComments(postId);
+    }
+
+    @PostMapping("/{postId}/comments")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> addComment(@PathVariable Long postId, @RequestBody Map<String, String> body) {
+        String content = body.get("content");
+        if (content == null || content.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "error", "Content is required"));
+        }
+        return bipService.addComment(postId, content);
+    }
+
+    @PostMapping("/{postId}/comments/{commentId}/replies")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> addReply(@PathVariable Long postId, @PathVariable Long commentId,
+                                       @RequestBody Map<String, String> body) {
+        String content = body.get("content");
+        if (content == null || content.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "error", "Content is required"));
+        }
+        return bipService.addReply(postId, commentId, content);
+    }
+
+    @PostMapping("/comments/{commentId}/like")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> toggleCommentLike(@PathVariable Long commentId) {
+        return bipService.toggleCommentLike(commentId);
     }
 }

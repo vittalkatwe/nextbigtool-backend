@@ -109,6 +109,8 @@ public class SecurityConfig {
                                 "/api/v1/pricing",
                                 "/api/v1/bip/feed",
                                 "/api/v1/hall-of-fame",
+                                "/api/v1/blogs",
+                                "/api/v1/blogs/{id}",
                                 "/api/v1/webhooks/razorpay",
                                 "/api/v1/newsletter/issues/*/read"
                         ).permitAll()

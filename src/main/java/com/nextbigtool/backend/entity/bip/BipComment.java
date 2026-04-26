@@ -1,39 +1,35 @@
 package com.nextbigtool.backend.entity.bip;
 
-import com.nextbigtool.backend.entity.tool.Tool;
 import com.nextbigtool.backend.entity.user.AppUser;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bip_posts")
-public class BuildInPublicPost {
+@Table(name = "bip_comments")
+public class BipComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private BuildInPublicPost post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private AppUser user;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PostType type;
-
-    @Column(nullable = false)
-    private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private String metricLabel;
-    private String metricValue;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tool_id")
-    private Tool tool;
+    @JoinColumn(name = "parent_id")
+    private BipComment parent;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -44,26 +40,20 @@ public class BuildInPublicPost {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
+    public BuildInPublicPost getPost() { return post; }
+    public void setPost(BuildInPublicPost post) { this.post = post; }
+
     public AppUser getUser() { return user; }
     public void setUser(AppUser user) { this.user = user; }
-
-    public PostType getType() { return type; }
-    public void setType(PostType type) { this.type = type; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
 
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public String getMetricLabel() { return metricLabel; }
-    public void setMetricLabel(String metricLabel) { this.metricLabel = metricLabel; }
+    public BipComment getParent() { return parent; }
+    public void setParent(BipComment parent) { this.parent = parent; }
 
-    public String getMetricValue() { return metricValue; }
-    public void setMetricValue(String metricValue) { this.metricValue = metricValue; }
-
-    public Tool getTool() { return tool; }
-    public void setTool(Tool tool) { this.tool = tool; }
+    public Boolean getDeleted() { return deleted; }
+    public void setDeleted(Boolean deleted) { this.deleted = deleted; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

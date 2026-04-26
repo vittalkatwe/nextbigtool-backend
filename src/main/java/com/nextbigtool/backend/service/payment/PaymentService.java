@@ -3,6 +3,7 @@ package com.nextbigtool.backend.service.payment;
 import com.nextbigtool.backend.entity.user.AppUser;
 import com.nextbigtool.backend.entity.user.BillingCycle;
 import com.nextbigtool.backend.entity.user.PlanType;
+import com.nextbigtool.backend.entity.user.Subscription;
 import com.nextbigtool.backend.model.payment.PaymentOrderRequestDto;
 import com.nextbigtool.backend.model.payment.PaymentVerifyDto;
 import com.nextbigtool.backend.model.payment.SubscriptionVerifyDto;
@@ -47,6 +48,14 @@ public class PaymentService {
             PlanType.CORE,  7900000
     );
 
+    private int planLevel(PlanType plan) {
+        return switch (plan) {
+            case FREE -> 0;
+            case BASIC -> 1;
+            case CORE -> 2;
+        };
+    }
+
     /**
      * Unified entry point. Routes to subscription (monthly) or order (yearly).
      */
@@ -54,6 +63,13 @@ public class PaymentService {
         PlanType planType = request.getPlanType();
         if (planType == PlanType.FREE) {
             return ResponseEntity.badRequest().body(Map.of("success", false, "error", "FREE plan requires no payment"));
+        }
+
+        AppUser user = currentUserService.getCurrentUser();
+        Subscription currentSub = subscriptionService.getOrCreateFree(user);
+        PlanType currentEffective = currentSub.getEffectivePlan();
+        if (currentEffective != PlanType.FREE && planLevel(planType) <= planLevel(currentEffective)) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "error", "Downgrade is not allowed. You can only upgrade your plan."));
         }
 
         BillingCycle cycle = request.getBillingCycle() != null ? request.getBillingCycle() : BillingCycle.MONTHLY;
