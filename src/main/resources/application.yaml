@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: NextBigTool
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nextbigtool
+    password: 8431465059
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  mail:
+    username: cobrother.com@gmail.com
+    password: qwex rbyd mamd kgql
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable:
+              true
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 513115585851-bjgtt3pmlnomdcg8btfj4n1e8vfnqmkn.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - openid
+              - profile
+              - email
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+
+server:
+  port: 8080
+
+jwt:
+  secret: cBp7/MqB9AzeWa6vlrvaIg8KdVI0rNbwgeXG1scQPI8T0CcC4TXb6VcW3OwH1cgGLOqeE7LZ/l7if1OP3v2usA==
+  expiration: 36000000
+  refresh:
+    expiration: 2592000000
+
+app:
+  frontend-url: http://localhost:3000
+  oauth2:
+    redirect-uri: http://localhost:3000/auth/callback
+
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIATH22YZ4Z4EVCPNV2
+      secret-key: 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
+      region: ap-south-1
+    venture:
+      images-bucket: cobrother-storage
+
+razorpay:
+  key-id: rzp_test_SXxop7Sv377VmF
+  key-secret: fjtHt0FhBcXWqdBTY4lyPtMt
